@@ -159,3 +159,15 @@
   white-space: nowrap;
 }
 #panelNeonRelay .nr-saved { padding-bottom: 0.45rem; font-size: 0.8rem; color: #2f9e44; }
+
+/* Secrets « pour ce lancement » */
+#panelNeonRelay .nr-once {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+#panelNeonRelay .nr-once-hint { margin: 0; }
+#panelNeonRelay .nr-once .nr-label { flex-basis: 6.5rem; }
+#panelNeonRelay .nr-eye { flex: 0 0 auto; padding-inline: 0.55rem; }

@@ -3,7 +3,7 @@
  "plugins": [
   {
    "id": "neonrelay",
-   "version": "1.0.1",
+   "version": "1.0.2",
    "minNeonFlare": "2.1.0",
    "name": {
     "fr": "NeonRelay",
@@ -51,8 +51,8 @@
    "files": [
     {
      "path": "README.md",
-     "sha256": "46c8de8dce642317caffca6087939f2b088677686543c4a9eb5b8c96baff5e86",
-     "size": 2207
+     "sha256": "5bd6840b304fcc8470a42b600b35a3c9b03de8f35f0917c6576ec3f145167437",
+     "size": 2458
     },
     {
      "path": "VENDOR.json",
@@ -71,18 +71,18 @@
     },
     {
      "path": "main.js",
-     "sha256": "dd32a2a91f0f552619be4dee3b9154ebcc86f92b29831d0ff223a616b15e9876",
-     "size": 26353
+     "sha256": "e794ab83e062c6ddca055e8ee3d38810184f83f77b4ef2860b0cd0daf70d34cd",
+     "size": 29302
     },
     {
      "path": "manifest.json",
-     "sha256": "d0f436ce4c816aa63a56606d5f49c34f783de1fa150a14c49faad6be2a38baa0",
+     "sha256": "d1160340b1f33f2921043eecd10948776a2cb22d70e1d6ddd808d1350e0b9114",
      "size": 1188
     },
     {
      "path": "neonrelay.css",
-     "sha256": "f0ceaaa1e92c16626f3a0f1993cb5a54092e8d7e14592ecc10ce10b02e57e2e4",
-     "size": 4434
+     "sha256": "764310c8368fb1c5ec36175c5063201605ad90922e445c5cba8bf6d50dfb0f7a",
+     "size": 4807
     },
     {
      "path": "client/README.md",

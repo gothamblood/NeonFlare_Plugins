@@ -23,6 +23,10 @@ NeonRelay tools inside the shell, exactly as on the command line.
 - After your Enter, `tools/nf-open.sh` turns echo off and prints the nonce's
   SHA-256; only then does the panel hand over the box values on one masked
   line. Anything missing is asked for in the shell, masked.
+- **"For this launch" fields** (password, E2E key, PIN; 👁 to show): type or
+  paste them in the panel instead of the shell's blind prompt. They go
+  through the same masked hand-over, are cleared right away and are never
+  stored. No vault needed.
 - **Saved secrets are optional** (box password, E2E key, PIN — one checkbox
   each, off by default, at your own risk) and only possible with the NeonFlare
   vault on: stored encrypted, never in clear. While a channel is open, the

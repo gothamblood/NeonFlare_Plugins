@@ -47,10 +47,13 @@
       typedNone: "Commande tapée dans « {shell} » : appuyez sur Entrée dans ce shell.",
       name: "Nom", base: "Adresse du relais", token: "Identifiant de la boîte (token)",
       pw: "Mot de passe de la boîte", key: "Clé de chiffrement E2E", pin: "PIN",
+      once: "Pour ce lancement (facultatif, rien n'est enregistré) — sinon le shell les demande :",
+      onceSaved: "enregistré", show: "Afficher / masquer",
+      short: { pw: "Mot de passe", key: "Clé E2E", pin: "PIN" },
       save: "Enregistrer (à mes risques)", saved: "enregistré", clear: "oublier",
       saveBox: "Enregistrer la boîte", cancel: "Annuler",
       secretsWarn: "Par défaut, aucun secret n'est gardé : le shell vous les demande en saisie masquée. Cocher « Enregistrer » les garde chiffrés par le coffre ; ils sont remis au shell en saisie masquée, jamais tapés en clair.",
-      vaultOff: "Pour enregistrer des secrets, activez le coffre (Paramètres › Chiffrement) : ils ne sont jamais gardés en clair.",
+      vaultOff: "Pour enregistrer des secrets, activez le coffre : \"enabled\": true dans config/encryption.js, puis Paramètres › Chiffrement › Activer le chiffrement. Ils ne sont jamais gardés en clair. Sans coffre, utilisez les champs « Pour ce lancement ».",
       badBase: "Adresse invalide (https://hôte:port).", badToken: "Identifiant invalide (lettres, chiffres, _ et -).",
       confirmDel: "Supprimer la boîte « {name} » (et ses secrets enregistrés) ?",
       t: {
@@ -76,10 +79,13 @@
       typedNone: "Command typed into \"{shell}\": press Enter in that shell.",
       name: "Name", base: "Relay address", token: "Box id (token)",
       pw: "Box password", key: "E2E encryption key", pin: "PIN",
+      once: "For this launch (optional, nothing is saved) — otherwise the shell asks for them:",
+      onceSaved: "saved", show: "Show / hide",
+      short: { pw: "Password", key: "E2E key", pin: "PIN" },
       save: "Save (at my own risk)", saved: "saved", clear: "forget",
       saveBox: "Save the box", cancel: "Cancel",
       secretsWarn: "By default no secret is kept: the shell asks for them as masked input. Ticking \"Save\" keeps them encrypted by the vault; they're handed to the shell as masked input, never typed in clear.",
-      vaultOff: "To save secrets, turn the vault on (Settings › Encryption): they're never kept in clear.",
+      vaultOff: "To save secrets, turn the vault on: \"enabled\": true in config/encryption.js, then Settings › Encryption › Turn on encryption. They're never kept in clear. Without the vault, use the \"For this launch\" fields.",
       badBase: "Invalid address (https://host:port).", badToken: "Invalid id (letters, digits, _ and -).",
       confirmDel: "Delete the \"{name}\" box (and its saved secrets)?",
       t: {
@@ -209,6 +215,7 @@
     let boxes = [];
     let panes = [];
     let watcher = null;
+    let paneSeq = 0; // rafraîchissements de la liste des shells (seul le dernier compte)
     let editing = null; // null | {} (nouvelle) | boîte
 
     root.classList.add("nr-root");
@@ -259,7 +266,11 @@
 
     function refreshPanes(selectNew) {
       const before = panes.map((p) => p.type + ":" + p.slot);
+      const seq = ++paneSeq;
       const done = (list) => {
+        // Seule la réponse du DERNIER rafraîchissement compte : une demande plus
+        // ancienne (sans réponse, résolue vide après son délai) n'écrase rien.
+        if (seq !== paneSeq) return;
         panes = (list || []).filter((p) => p && (p.type === "bash" || p.type === "zsh"));
         let sel = ui().shell;
         if (selectNew) {
@@ -353,6 +364,40 @@
       rowShell.appendChild(shellSel);
       rowShell.appendChild(btn("↻", "nr-refresh", () => refreshPanes()));
       left.appendChild(rowShell);
+
+      // Secrets « pour ce lancement » : saisis ici (collage possible), remis au
+      // shell par la même remise masquée que les secrets enregistrés, puis
+      // effacés. Jamais stockés (ni coffre, ni localStorage).
+      const once = el("div", "nr-once");
+      once.appendChild(el("p", "nr-hint nr-once-hint", T.once));
+      ["pw", "key", "pin"].forEach((k) => {
+        const row = el("div", "nr-row");
+        row.appendChild(el("label", "nr-label", T.short[k]));
+        const i = el("input", "nr-once-" + k);
+        i.setAttribute("aria-label", T[k]);
+        i.type = "password";
+        i.autocomplete = "new-password";
+        i.spellcheck = false;
+        i.setAttribute("data-lpignore", "true");
+        i.setAttribute("data-1p-ignore", "true");
+        i.setAttribute("data-bwignore", "true");
+        row.appendChild(i);
+        const eye = btn("👁", "nr-eye", () => { i.type = i.type === "password" ? "text" : "password"; });
+        eye.title = T.show;
+        eye.setAttribute("aria-label", T.show);
+        row.appendChild(eye);
+        once.appendChild(row);
+      });
+      left.appendChild(once);
+      const markSaved = () => {
+        const b = selectedBox();
+        ["pw", "key", "pin"].forEach((k) => {
+          const i = once.querySelector(".nr-once-" + k);
+          if (i) i.placeholder = b && b[k] ? "(" + T.onceSaved + ")" : "";
+        });
+      };
+      boxSel.addEventListener("change", markSaved);
+      markSaved();
 
       if (!pluginDirFromLocation()) {
         const rowDir = el("div", "nr-row");
@@ -508,10 +553,17 @@
       }
       // Valeurs remises seulement après le signal ; rien d'autre n'est jamais envoyé.
       const base = box ? box.base : DEFAULT_BASE;
+      // Saisi « pour ce lancement » > enregistré > rien (le shell demandera).
+      const typed = (k) => {
+        const i = root.querySelector(".nr-once-" + k);
+        return i && i.value ? i.value : "";
+      };
       const fields = need === "box"
-        ? [base, box.token, box.pw || "", box.key || "", box.pin || ""]
+        ? [base, box.token, typed("pw") || box.pw || "", typed("key") || box.key || "", typed("pin") || box.pin || ""]
         : [base, "", "", "", ""];
       const line = "NFR1 " + fields.map(b64).join(" ");
+      // Les valeurs vivent désormais dans `line` seulement : champs vidés et remasqués.
+      root.querySelectorAll(".nr-once input").forEach((i) => { i.value = ""; i.type = "password"; });
       const w = api.shell.deliverOnMarker(api.shell.portFor(pane), "NFR-READY:" + sha256hex(nonce), line, { timeoutMs: 300000 });
       watcher = w;
       w.promise.then((r) => {
