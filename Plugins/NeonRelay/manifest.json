@@ -1,0 +1,28 @@
+{
+  "id": "neonrelay",
+  "version": "1.0.0",
+  "minNeonFlare": "2.1.0",
+  "name": { "fr": "NeonRelay", "en": "NeonRelay" },
+  "description": {
+    "fr": "Ouvre le canal chiffré d'une boîte NeonRelay dans un shell NeonFlare, avec les outils NeonRelay (écouter, relayer, déposer…). Le navigateur ne contacte jamais le relais : le TLS (ML-DSA-87 épinglé, ML-KEM) est fait par les outils dans le shell. Rien n'est lancé sans votre Entrée.",
+    "en": "Opens a NeonRelay box's encrypted channel in a NeonFlare shell, with the NeonRelay tools (listen, relay, stash…). The browser never contacts the relay: TLS (pinned ML-DSA-87, ML-KEM) is done by the tools in the shell. Nothing runs until you press Enter."
+  },
+  "icon": "icon.svg",
+  "permissions": {
+    "shell": true,
+    "grc": false,
+    "network": [],
+    "vault": ["/plugins/neonrelay/secure/boxes"],
+    "storage": []
+  },
+  "styles": ["neonrelay.css"],
+  "scripts": ["main.js"],
+  "panels": [
+    { "key": "panelNeonRelay", "label": { "fr": "NeonRelay", "en": "NeonRelay" }, "wide": true }
+  ],
+  "dashboard": {
+    "id": "seed-neonrelay",
+    "name": "NeonRelay",
+    "visible": ["panelNeonRelay", "panelShells"]
+  }
+}

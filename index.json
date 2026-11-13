@@ -2,6 +2,201 @@
  "format": 1,
  "plugins": [
   {
+   "id": "neonrelay",
+   "version": "1.0.0",
+   "minNeonFlare": "2.1.0",
+   "name": {
+    "fr": "NeonRelay",
+    "en": "NeonRelay"
+   },
+   "description": {
+    "fr": "Ouvre le canal chiffré d'une boîte NeonRelay dans un shell NeonFlare, avec les outils NeonRelay (écouter, relayer, déposer…). Le navigateur ne contacte jamais le relais : le TLS (ML-DSA-87 épinglé, ML-KEM) est fait par les outils dans le shell. Rien n'est lancé sans votre Entrée.",
+    "en": "Opens a NeonRelay box's encrypted channel in a NeonFlare shell, with the NeonRelay tools (listen, relay, stash…). The browser never contacts the relay: TLS (pinned ML-DSA-87, ML-KEM) is done by the tools in the shell. Nothing runs until you press Enter."
+   },
+   "icon": "icon.svg",
+   "permissions": {
+    "shell": true,
+    "grc": false,
+    "network": [],
+    "vault": [
+     "/plugins/neonrelay/secure/boxes"
+    ],
+    "storage": []
+   },
+   "styles": [
+    "neonrelay.css"
+   ],
+   "scripts": [
+    "main.js"
+   ],
+   "panels": [
+    {
+     "key": "panelNeonRelay",
+     "label": {
+      "fr": "NeonRelay",
+      "en": "NeonRelay"
+     },
+     "wide": true
+    }
+   ],
+   "dashboard": {
+    "id": "seed-neonrelay",
+    "name": "NeonRelay",
+    "visible": [
+     "panelNeonRelay",
+     "panelShells"
+    ]
+   },
+   "dir": "Plugins/NeonRelay",
+   "files": [
+    {
+     "path": "README.md",
+     "sha256": "46c8de8dce642317caffca6087939f2b088677686543c4a9eb5b8c96baff5e86",
+     "size": 2207
+    },
+    {
+     "path": "VENDOR.json",
+     "sha256": "06989536de3df7b2d887e0b9a974b2413ef3bcbe986884213f460882da804f52",
+     "size": 2281
+    },
+    {
+     "path": "cert.pem",
+     "sha256": "d550501d2776049477ca4f75c2c38b7cd3bb5e012d1036dc36932b07e9550ce2",
+     "size": 10215
+    },
+    {
+     "path": "icon.svg",
+     "sha256": "9f9410133f1c1a88925408cb276bb909cd9a5bc7cb3dd105fc5c064b3c20e36c",
+     "size": 472
+    },
+    {
+     "path": "main.js",
+     "sha256": "2c7349866c3cf76b0df590b03df7999c3293bbd4089f3d6da12ef0a42dfb1b9a",
+     "size": 25861
+    },
+    {
+     "path": "manifest.json",
+     "sha256": "adc8effe691d1e2cfdd2366fe82a17270fafef412e677e42afca18e6127ecde9",
+     "size": 1188
+    },
+    {
+     "path": "neonrelay.css",
+     "sha256": "3d9fa34745b3b3d9fa5d5c49d8af4ee43d7c1a77e5516e799f7b5cb7f7988250",
+     "size": 2343
+    },
+    {
+     "path": "client/README.md",
+     "sha256": "998f260dd97a8e2921384c705bc31c7d891b60ae20a0f153eecc9458869fe972",
+     "size": 733
+    },
+    {
+     "path": "client/neonrelay.py",
+     "sha256": "5d59aa458fc558e82ed56c597b2061a00664d7d8e14a041d6f873231c1ede5fc",
+     "size": 50919
+    },
+    {
+     "path": "client/openssl-tls.cnf",
+     "sha256": "40fcb1b909e540eae22417442fa6e081ac6eff53d14d72cfbe43362a398de2ad",
+     "size": 723
+    },
+    {
+     "path": "scripts/LICENSE-NeonRelay.txt",
+     "sha256": "a75f645a4e3d531259aed456d7607907b74092eef7896e2b122e4014a6807bc3",
+     "size": 1069
+    },
+    {
+     "path": "scripts/count.sh",
+     "sha256": "92213b9f537d1698d6fa5677fc644c11f0f91761b52e554a05abe10f2b214278",
+     "size": 1522
+    },
+    {
+     "path": "scripts/delete.sh",
+     "sha256": "5383b68ce5324679bf133cf66967ab21aa50eafcba97658f24a8b607818a01af",
+     "size": 1229
+    },
+    {
+     "path": "scripts/health.sh",
+     "sha256": "8b55ee40b4d801cc9a68ae45f7e80af5843a78980bd41eb4ea55fb32cc650dcb",
+     "size": 1142
+    },
+    {
+     "path": "scripts/readstash.sh",
+     "sha256": "fc00bb43b1a15c1d5c5e459a8b4750f22372a303ad77d61a4a9f56bb2f140bf9",
+     "size": 3380
+    },
+    {
+     "path": "scripts/relay.sh",
+     "sha256": "73a3fb99280af442760826edfff33bdfdb673ed7ac5dc1f1402cf80642df32d8",
+     "size": 2364
+    },
+    {
+     "path": "scripts/secure-shell.sh",
+     "sha256": "90c1320f17420b37797086425aff7190a9d3a26b8b6564f49747d411aabadcf9",
+     "size": 3214
+    },
+    {
+     "path": "scripts/stash.sh",
+     "sha256": "4b6e242b69d6684d5f9a4c7fd84acb8310dd938146100e2d0f6fb3948317c2fc",
+     "size": 1372
+    },
+    {
+     "path": "scripts/stream.sh",
+     "sha256": "f4d2f64fa372bbe03778b9e33f357ffc1cb33906f38b39dc44dc6f029c83da21",
+     "size": 2310
+    },
+    {
+     "path": "scripts/token.sh",
+     "sha256": "cf221f40024c544793d65b6170b38944e47a153ca313ab482093881db19d979b",
+     "size": 1695
+    },
+    {
+     "path": "scripts/base/_crypto.py",
+     "sha256": "fcdb86d2b9560845a13f87143a6aed9797075f0c6f0301cecbbfb6ceb8a95476",
+     "size": 6364
+    },
+    {
+     "path": "scripts/base/_crypto.sh",
+     "sha256": "a5465852e86a71b2d0e90bc2181cf0174be161f87656f05b49bc50a264d866ab",
+     "size": 3287
+    },
+    {
+     "path": "scripts/base/_launch.sh",
+     "sha256": "01396da7a13ea268616163db34ced264add47d2b533ac89d5018ca81187888ac",
+     "size": 1602
+    },
+    {
+     "path": "scripts/base/_stream_reader.py",
+     "sha256": "b921acb2fed28b640f732da638ecc44054bd38e407a966282a9e423694d9a3bc",
+     "size": 1844
+    },
+    {
+     "path": "scripts/base/_tls.sh",
+     "sha256": "bec5775b7ed836a80815e0f6915f21ca8271007895da7475a8c116bad6d51ed9",
+     "size": 1040
+    },
+    {
+     "path": "scripts/base/_token.sh",
+     "sha256": "0e4865c7a7a030495f0e789f227aa6d5063808ac0e1e93e23a0c10c0e53fd9c5",
+     "size": 1261
+    },
+    {
+     "path": "scripts/base/_userpass.sh",
+     "sha256": "64c964336b4c1825d17b0d63156ffb6b55508cd0fa56c4f903097fa95a7c2262",
+     "size": 1646
+    },
+    {
+     "path": "scripts/base/openssl-tls.cnf",
+     "sha256": "40fcb1b909e540eae22417442fa6e081ac6eff53d14d72cfbe43362a398de2ad",
+     "size": 723
+    },
+    {
+     "path": "tools/nf-open.sh",
+     "sha256": "82a41460e7007f060e4124906e2fd549db54aa7513f53fe10d776fbbb4c05b8b",
+     "size": 5842
+    }
+   ]
+  },
+  {
    "id": "osint",
    "version": "1.0.0",
    "minNeonFlare": "2.0.0",

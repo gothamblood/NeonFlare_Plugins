@@ -1,0 +1,30 @@
+/* Plugin NeonRelay -- panneau du Dashboard */
+#panelNeonRelay .nr-root { display: flex; flex-direction: column; gap: 0.5rem; }
+#panelNeonRelay .nr-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+#panelNeonRelay .nr-label { min-width: 3.5rem; color: #bbb; font-size: 0.85rem; }
+#panelNeonRelay .nr-label-wide { min-width: 0; width: 100%; }
+#panelNeonRelay select, #panelNeonRelay input[type="text"], #panelNeonRelay input[type="password"] {
+  flex: 1 1 12rem; min-width: 0; padding: 0.3rem 0.45rem; border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(0, 0, 0, 0.35); color: inherit; font: inherit;
+}
+#panelNeonRelay .nr-launch { align-self: flex-start; font-weight: 600; }
+#panelNeonRelay .nr-section { margin: 0.3rem 0 0; font-size: 0.85rem; color: #bbb; }
+#panelNeonRelay .nr-tools { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+#panelNeonRelay .nr-operator summary { cursor: pointer; font-size: 0.85rem; color: #bbb; }
+#panelNeonRelay .nr-operator .nr-tools { margin-top: 0.4rem; }
+#panelNeonRelay .nr-hint, #panelNeonRelay .nr-cert { margin: 0; font-size: 0.8rem; color: #999; overflow-wrap: anywhere; }
+#panelNeonRelay .nr-hint-warn, #panelNeonRelay .nr-warn { color: #ffd8a8; }
+#panelNeonRelay .nr-warn { margin: 0; font-size: 0.85rem; }
+#panelNeonRelay .nr-status { margin: 0; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.85rem;
+  border: 1px solid #444; background: rgba(255, 255, 255, 0.04); }
+#panelNeonRelay .nr-status-ok { border-color: #2f9e44; }
+#panelNeonRelay .nr-status-info { border-color: var(--accent, #48dbfb); }
+#panelNeonRelay .nr-status-warn { border-color: #ffb347; color: #ffd8a8; }
+#panelNeonRelay .nr-status-error { border-color: #e03131; color: #ffc9c9; }
+#panelNeonRelay [hidden] { display: none !important; }
+#panelNeonRelay .nr-form { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; }
+#panelNeonRelay .nr-field { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; flex: 1 1 14rem; }
+#panelNeonRelay .nr-secret { display: flex; align-items: flex-end; gap: 0.5rem; flex-wrap: wrap; }
+#panelNeonRelay .nr-save { font-size: 0.8rem; color: #bbb; white-space: nowrap; }
+#panelNeonRelay .nr-saved { font-size: 0.8rem; color: #2f9e44; }
