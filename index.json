@@ -3,7 +3,7 @@
  "plugins": [
   {
    "id": "neonrelay",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "minNeonFlare": "2.1.0",
    "name": {
     "fr": "NeonRelay",
@@ -71,18 +71,18 @@
     },
     {
      "path": "main.js",
-     "sha256": "2c7349866c3cf76b0df590b03df7999c3293bbd4089f3d6da12ef0a42dfb1b9a",
-     "size": 25861
+     "sha256": "dd32a2a91f0f552619be4dee3b9154ebcc86f92b29831d0ff223a616b15e9876",
+     "size": 26353
     },
     {
      "path": "manifest.json",
-     "sha256": "adc8effe691d1e2cfdd2366fe82a17270fafef412e677e42afca18e6127ecde9",
+     "sha256": "d0f436ce4c816aa63a56606d5f49c34f783de1fa150a14c49faad6be2a38baa0",
      "size": 1188
     },
     {
      "path": "neonrelay.css",
-     "sha256": "3d9fa34745b3b3d9fa5d5c49d8af4ee43d7c1a77e5516e799f7b5cb7f7988250",
-     "size": 2343
+     "sha256": "f0ceaaa1e92c16626f3a0f1993cb5a54092e8d7e14592ecc10ce10b02e57e2e4",
+     "size": 4434
     },
     {
      "path": "client/README.md",

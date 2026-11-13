@@ -1,30 +1,161 @@
-/* Plugin NeonRelay -- panneau du Dashboard */
-#panelNeonRelay .nr-root { display: flex; flex-direction: column; gap: 0.5rem; }
-#panelNeonRelay .nr-row { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-#panelNeonRelay .nr-label { min-width: 3.5rem; color: #bbb; font-size: 0.85rem; }
-#panelNeonRelay .nr-label-wide { min-width: 0; width: 100%; }
-#panelNeonRelay select, #panelNeonRelay input[type="text"], #panelNeonRelay input[type="password"] {
-  flex: 1 1 12rem; min-width: 0; padding: 0.3rem 0.45rem; border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(0, 0, 0, 0.35); color: inherit; font: inherit;
+/* Plugin NeonRelay -- panneau du Dashboard.
+   Deux blocs côte à côte (Connexion | Outils), l'un sous l'autre si le panneau
+   est étroit ; messages et formulaire en dessous ; empreinte en pied. */
+#panelNeonRelay .nr-root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 0.4rem 0.2rem 0.2rem;
 }
-#panelNeonRelay .nr-launch { align-self: flex-start; font-weight: 600; }
-#panelNeonRelay .nr-section { margin: 0.3rem 0 0; font-size: 0.85rem; color: #bbb; }
-#panelNeonRelay .nr-tools { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-#panelNeonRelay .nr-operator summary { cursor: pointer; font-size: 0.85rem; color: #bbb; }
-#panelNeonRelay .nr-operator .nr-tools { margin-top: 0.4rem; }
-#panelNeonRelay .nr-hint, #panelNeonRelay .nr-cert { margin: 0; font-size: 0.8rem; color: #999; overflow-wrap: anywhere; }
-#panelNeonRelay .nr-hint-warn, #panelNeonRelay .nr-warn { color: #ffd8a8; }
-#panelNeonRelay .nr-warn { margin: 0; font-size: 0.85rem; }
-#panelNeonRelay .nr-status { margin: 0; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.85rem;
-  border: 1px solid #444; background: rgba(255, 255, 255, 0.04); }
+#panelNeonRelay [hidden] { display: none !important; }
+
+/* ---------- blocs ---------- */
+#panelNeonRelay .nr-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+#panelNeonRelay .nr-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  min-width: 0;
+}
+#panelNeonRelay .nr-block-title {
+  margin: 0 0 0.1rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, #48dbfb);
+}
+
+/* ---------- lignes Boîte / Shell ---------- */
+#panelNeonRelay .nr-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+#panelNeonRelay .nr-label {
+  flex: 0 0 4.2rem;
+  color: #bbb;
+  font-size: 0.85rem;
+}
+#panelNeonRelay .nr-label-wide { flex-basis: 100%; }
+#panelNeonRelay select,
+#panelNeonRelay input[type="text"],
+#panelNeonRelay input[type="password"] {
+  flex: 1 1 12rem;
+  min-width: 0;
+  max-width: 30rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.4);
+  color: inherit;
+  font: inherit;
+}
+#panelNeonRelay .nr-add,
+#panelNeonRelay .nr-edit,
+#panelNeonRelay .nr-del,
+#panelNeonRelay .nr-refresh { flex: 0 0 auto; }
+#panelNeonRelay .nr-del { border-color: #7a3b3b; }
+
+/* ---------- actions ---------- */
+#panelNeonRelay .nr-launch {
+  align-self: flex-start;
+  margin-top: 0.2rem;
+  padding-inline: 1.2rem;
+  font-weight: 600;
+}
+#panelNeonRelay .nr-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+#panelNeonRelay .nr-operator {
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+#panelNeonRelay .nr-operator summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #bbb;
+}
+#panelNeonRelay .nr-operator .nr-tools { margin-top: 0.6rem; }
+#panelNeonRelay button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ---------- textes ---------- */
+#panelNeonRelay .nr-hint {
+  margin: -0.3rem 0 0;
+  font-size: 0.8rem;
+  color: #999;
+  overflow-wrap: anywhere;
+}
+#panelNeonRelay .nr-hint-warn { color: #ffd8a8; }
+#panelNeonRelay .nr-warn {
+  margin: 0;
+  padding: 0.45rem 0.65rem;
+  border-left: 3px solid #ffb347;
+  border-radius: 4px;
+  background: rgba(255, 179, 71, 0.08);
+  color: #ffd8a8;
+  font-size: 0.85rem;
+}
+#panelNeonRelay .nr-status {
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid #444;
+  background: rgba(255, 255, 255, 0.04);
+}
 #panelNeonRelay .nr-status-ok { border-color: #2f9e44; }
 #panelNeonRelay .nr-status-info { border-color: var(--accent, #48dbfb); }
 #panelNeonRelay .nr-status-warn { border-color: #ffb347; color: #ffd8a8; }
 #panelNeonRelay .nr-status-error { border-color: #e03131; color: #ffc9c9; }
-#panelNeonRelay [hidden] { display: none !important; }
-#panelNeonRelay .nr-form { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 8px; }
-#panelNeonRelay .nr-field { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; flex: 1 1 14rem; }
-#panelNeonRelay .nr-secret { display: flex; align-items: flex-end; gap: 0.5rem; flex-wrap: wrap; }
-#panelNeonRelay .nr-save { font-size: 0.8rem; color: #bbb; white-space: nowrap; }
-#panelNeonRelay .nr-saved { font-size: 0.8rem; color: #2f9e44; }
+#panelNeonRelay .nr-cert {
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  color: #888;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- formulaire d'une boîte ---------- */
+#panelNeonRelay .nr-form { gap: 0.8rem; }
+/* Le formulaire est une colonne : chaque champ garde sa hauteur naturelle
+   (une base flex y jouerait sur la hauteur) et une largeur raisonnable. */
+#panelNeonRelay .nr-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 0 0 auto;
+  width: min(100%, 30rem);
+  font-size: 0.85rem;
+  color: #bbb;
+}
+#panelNeonRelay .nr-field input { flex: 0 0 auto; max-width: none; width: 100%; }
+#panelNeonRelay .nr-secret {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem 0.9rem;
+  flex-wrap: wrap;
+}
+#panelNeonRelay .nr-secret .nr-field { width: min(100%, 30rem); }
+#panelNeonRelay .nr-form .nr-row { margin-top: 0.2rem; }
+#panelNeonRelay .nr-save {
+  padding-bottom: 0.45rem;
+  font-size: 0.8rem;
+  color: #bbb;
+  white-space: nowrap;
+}
+#panelNeonRelay .nr-saved { padding-bottom: 0.45rem; font-size: 0.8rem; color: #2f9e44; }

@@ -35,7 +35,7 @@
       box: "Boîte", shell: "Shell", add: "+ Ajouter", edit: "✎", del: "Supprimer",
       noBox: "Aucune boîte : ajoutez-en une (identifiant de la boîte, adresse du relais).",
       noShell: "Aucun shell ouvert", newBash: "Nouveau Bash", newZsh: "Nouveau Zsh",
-      launch: "▶ Lancer le canal", tools: "Outils (boîte et shell choisis)",
+      launch: "▶ Lancer le canal", tools: "Outils (boîte et shell choisis)", connect: "Connexion",
       operator: "Opérateur", cert: "Certificat épinglé (SHA-256) : ",
       ttydOff: "Les shells ne tournent pas : lancez scripts/ttyd-shells.sh start, puis ouvrez un shell.",
       pickShell: "Ouvrez un shell (Bash ou Zsh) ou choisissez « Nouveau Bash ».",
@@ -64,7 +64,7 @@
       box: "Box", shell: "Shell", add: "+ Add", edit: "✎", del: "Delete",
       noBox: "No box yet: add one (box id, relay address).",
       noShell: "No shell open", newBash: "New Bash", newZsh: "New Zsh",
-      launch: "▶ Open the channel", tools: "Tools (selected box and shell)",
+      launch: "▶ Open the channel", tools: "Tools (selected box and shell)", connect: "Connection",
       operator: "Operator", cert: "Pinned certificate (SHA-256): ",
       ttydOff: "The shells aren't running: run scripts/ttyd-shells.sh start, then open a shell.",
       pickShell: "Open a shell (Bash or Zsh) or pick \"New Bash\".",
@@ -289,12 +289,15 @@
       if (!s) return;
       s.innerHTML = "";
       if (!panes.length) s.appendChild(new Option(T.noShell, ""));
-      panes.forEach((p) => s.appendChild(new Option(api.shell.paneLabel(p), p.type + ":" + p.slot)));
+      panes.forEach((p) => s.appendChild(new Option(paneName(p), p.type + ":" + p.slot)));
       s.appendChild(new Option(T.newBash, "new:bash"));
       s.appendChild(new Option(T.newZsh, "new:zsh"));
       if (sel && panes.some((p) => p.type + ":" + p.slot === sel)) s.value = sel;
       else if (panes.length) s.value = panes[0].type + ":" + panes[0].slot;
     }
+
+    // Le titre d'un shell contient déjà « Zsh 1 (:7691) » : pas de doublon.
+    function paneName(p) { return p.title || api.shell.paneLabel(p); }
 
     function selectedPane() {
       const v = (root.querySelector(".nr-shell") || {}).value || "";
@@ -307,6 +310,13 @@
 
     function render() {
       root.innerHTML = "";
+      const layout = el("div", "nr-layout");
+      const left = el("section", "nr-block nr-block-connect");
+      left.appendChild(el("h3", "nr-block-title", T.connect));
+      const right = el("section", "nr-block nr-block-tools");
+      right.appendChild(el("h3", "nr-block-title", T.tools));
+      layout.append(left, right);
+      root.appendChild(layout);
       const rowBox = el("div", "nr-row");
       rowBox.appendChild(el("label", "nr-label", T.box));
       const boxSel = el("select", "nr-box");
@@ -325,8 +335,8 @@
         render();
         refreshPanes();
       }));
-      root.appendChild(rowBox);
-      if (!boxes.length) root.appendChild(el("p", "nr-hint", T.noBox));
+      left.appendChild(rowBox);
+      if (!boxes.length) left.appendChild(el("p", "nr-hint", T.noBox));
 
       const rowShell = el("div", "nr-row");
       rowShell.appendChild(el("label", "nr-label", T.shell));
@@ -342,7 +352,7 @@
       });
       rowShell.appendChild(shellSel);
       rowShell.appendChild(btn("↻", "nr-refresh", () => refreshPanes()));
-      root.appendChild(rowShell);
+      left.appendChild(rowShell);
 
       if (!pluginDirFromLocation()) {
         const rowDir = el("div", "nr-row");
@@ -353,36 +363,35 @@
         dir.placeholder = "/home/…/NeonFlare";
         dir.addEventListener("change", () => setUi({ dir: dir.value.trim() }));
         rowDir.appendChild(dir);
-        root.appendChild(rowDir);
+        left.appendChild(rowDir);
       }
 
       const warn = el("p", "nr-warn");
       warn.hidden = true;
-      root.appendChild(warn);
+      left.appendChild(warn);
       const go = btn(T.launch, "nr-go nr-launch", () => run("secure-shell"));
-      root.appendChild(go);
+      left.appendChild(go);
 
-      root.appendChild(el("p", "nr-section", T.tools));
       const tools = el("div", "nr-tools");
       ["stream", "relay", "stash", "readstash", "count", "delete", "health"].forEach((t) =>
         tools.appendChild(btn(T.t[t], "nr-go nr-tool", () => run(t), t)));
-      root.appendChild(tools);
+      right.appendChild(tools);
       const op = el("details", "nr-operator");
       op.appendChild(el("summary", null, T.operator));
       const opTools = el("div", "nr-tools");
       ["token", "client", "check-key", "make-key", "make-pin", "claviers"].forEach((t) =>
         opTools.appendChild(btn(T.t[t], "nr-go nr-tool", () => run(t), t)));
       op.appendChild(opTools);
-      root.appendChild(op);
+      right.appendChild(op);
 
       const st = el("p", "nr-status");
       st.setAttribute("role", "status");
       st.hidden = true;
       root.appendChild(st);
-      root.appendChild(el("p", "nr-cert", T.cert + CERT_SHA256));
-      const form = el("div", "nr-form");
+      const form = el("div", "nr-form nr-block");
       form.hidden = true;
       root.appendChild(form);
+      root.appendChild(el("p", "nr-cert", T.cert + CERT_SHA256));
       renderShellSelect(ui().shell);
       renderWarn();
     }
@@ -486,7 +495,7 @@
       crypto.getRandomValues(nonceBytes);
       const nonce = hex(nonceBytes);
       const command = " bash " + shq(dir + "/tools/nf-open.sh") + " " + tool + " " + nonce;
-      const label = api.shell.paneLabel(pane);
+      const label = paneName(pane);
       if (watcher) { watcher.cancel(); watcher = null; }
 
       const type = () => window.top.postMessage(
