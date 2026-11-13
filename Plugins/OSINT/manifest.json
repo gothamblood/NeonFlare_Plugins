@@ -1,0 +1,33 @@
+{
+  "id": "osint",
+  "version": "1.0.0",
+  "minNeonFlare": "2.0.0",
+  "name": { "fr": "OSINT", "en": "OSINT" },
+  "description": {
+    "fr": "Reconnaissance passive d'une cible autorisée : Google Dorks, Shodan, certificats (crt.sh), Wayback Machine et un inventaire « Actifs découverts » (DNS, RDAP, ASN, ports connus).",
+    "en": "Passive reconnaissance of an authorised target: Google Dorks, Shodan, certificates (crt.sh), Wayback Machine and a \"Discovered assets\" inventory (DNS, RDAP, ASN, known ports)."
+  },
+  "icon": "icon.svg",
+  "permissions": {
+    "shell": true,
+    "grc": true,
+    "network": ["crt.sh", "dns.google", "rdap.org", "stat.ripe.net", "internetdb.shodan.io", "web.archive.org", "urlscan.io"],
+    "vault": ["/dashboard.html/osintInventory"],
+    "storage": ["/dashboard.html/osintTarget", "/dashboard.html/dorks", "/dashboard.html/shodan", "/dashboard.html/crtsh", "/dashboard.html/wayback", "/dashboard.html/osintCollectUi"]
+  },
+  "legacySeenKey": "/settings.html/osintPanelsMigrated",
+  "styles": ["osint.css"],
+  "scripts": ["osint-common.js", "osint-dorks.js", "osint-shodan.js", "osint-crtsh.js", "osint-wayback.js", "osint-collect.js", "main.js"],
+  "panels": [
+    { "key": "panelDorks", "label": { "fr": "Google Dorks", "en": "Google Dorks" } },
+    { "key": "panelShodan", "label": { "fr": "Shodan", "en": "Shodan" } },
+    { "key": "panelCrtsh", "label": { "fr": "Certificats (crt.sh)", "en": "Certificates (crt.sh)" } },
+    { "key": "panelWayback", "label": { "fr": "Wayback Machine", "en": "Wayback Machine" } },
+    { "key": "panelOsintAssets", "label": { "fr": "Actifs découverts", "en": "Discovered assets" }, "wide": true }
+  ],
+  "dashboard": {
+    "id": "seed-osint",
+    "name": "OSINT",
+    "visible": ["panelDorks", "panelShodan", "panelCrtsh", "panelWayback", "panelOsintAssets"]
+  }
+}

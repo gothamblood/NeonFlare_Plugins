@@ -1,0 +1,442 @@
+/* Plugin OSINT -- styles des panneaux (extraits de dashboard-panels.css du cœur,
+   2026-11-13). La rangée (deux panneaux par ligne, « Actifs découverts » en
+   pleine largeur) est la rangée générique des plugins (.dash-row-plugin). */
+
+/* Google Dorks panel (OSINT dashboard) -- assets/script/osint-dorks.js */
+.dorks-panel {
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dorks-bar,
+.dorks-custom {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.dorks-input,
+.dorks-select {
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: inherit;
+  background: rgba(8, 10, 16, 0.65);
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  min-width: 0;
+}
+
+.dorks-input {
+  flex: 1 1 220px;
+}
+
+.dorks-input:focus,
+.dorks-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.dorks-input.invalid {
+  border-color: var(--danger, #ff4b6a);
+}
+
+.dorks-tlds {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0 0.2rem;
+}
+
+.dorks-tlds[hidden] {
+  display: none;
+}
+
+.dorks-tlds-label {
+  font-size: 0.75rem;
+  color: #bbb;
+}
+
+.dorks-wild {
+  border-style: dashed;
+}
+
+.dorks-value-input.invalid {
+  color: var(--danger, #ff4b6a);
+}
+
+.dorks-hint {
+  font-size: 0.72rem;
+  color: #999;
+  font-style: italic;
+  padding: 0 0.2rem;
+}
+
+.dorks-hint[hidden] {
+  display: none;
+}
+
+/* Shared target, collapsed form (Shodan / crt.sh / Wayback panels):
+   one-line summary of the extensions, expands on click. */
+.dorks-tld-summary {
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: #bbb;
+  background: none;
+  border: 1px dashed #555;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  cursor: pointer;
+}
+
+.dorks-tld-summary:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* crt.sh / Wayback: options line + one row per domain variant */
+.osint-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.2rem;
+}
+
+.dorks-input.osint-small-input {
+  flex: 0 0 auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.osint-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.osint-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.osint-row-query {
+  flex: 1 1 auto;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.dorks-clauses {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* One criterion: category ▾ · element ▾ · checkboxes (+ own value) · ✕ */
+.dorks-clause {
+  display: grid;
+  grid-template-columns: minmax(130px, 11rem) minmax(150px, 13rem) 1fr auto;
+  align-items: start;
+  gap: 0.5rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.dorks-values {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dorks-opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dorks-opt input {
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+.dorks-opt.off {
+  border-color: #444;
+  color: #888;
+}
+
+.dorks-chip-x {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 0 0 0.15rem;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.dorks-chip-x:hover {
+  color: var(--danger, #ff4b6a);
+}
+
+.dorks-value-adder {
+  display: inline-flex;
+  align-items: center;
+  border: 1px dashed #555;
+  border-radius: 999px;
+  padding: 0 0.2rem 0 0.5rem;
+}
+
+.dorks-value-input {
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 7rem;
+  padding: 0.2rem 0;
+}
+
+.dorks-value-add {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0 0.2rem;
+}
+
+.dorks-add-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dorks-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: rgba(8, 10, 16, 0.65);
+}
+
+.dorks-preview-query {
+  flex: 1 1 auto;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.dorks-preview-query.empty {
+  color: #888;
+  font-style: italic;
+}
+
+.dorks-row-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.dorks-btn {
+  padding: 0.25rem 0.55rem;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: none;
+  line-height: 1.2;
+}
+
+.dorks-open.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .dorks-clause {
+    grid-template-columns: 1fr auto;
+  }
+  .dorks-clause > .dorks-select:nth-child(2),
+  .dorks-clause > .dorks-values {
+    grid-column: 1 / -1;
+  }
+  .dorks-clause > .dorks-remove {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .dorks-preview {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Actifs découverts (OSINT, osint-collect.js, 2026-11-10) */
+.osint-inv-select {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 16rem;
+}
+.dorks-input.osint-inv-scope {
+  flex: 1 1 14rem;
+}
+.osint-inv-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0 0.2rem;
+  font-size: 0.75rem;
+}
+.osint-inv-status-text:empty { display: none; }
+.osint-inv-status-text.ok { color: #6be3a0; }
+.osint-inv-status-text.fail { color: var(--danger, #ff4b6a); }
+.osint-inv-status-text.pending { color: #f2c46d; }
+.osint-inv-count {
+  font-size: 0.75rem;
+  opacity: 0.75;
+  padding: 0 0.2rem;
+}
+.osint-inv-list {
+  overflow-x: auto;
+}
+.osint-inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+.osint-inv-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+.osint-inv-table td {
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  vertical-align: middle;
+}
+.osint-inv-table tr.dismissed td { opacity: 0.45; }
+.osint-inv-value {
+  overflow-wrap: anywhere;
+  max-width: 40rem;
+  font-family: monospace;
+}
+.osint-inv-date { white-space: nowrap; }
+.osint-inv-actions {
+  display: flex;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+.osint-inv-actions .dorks-btn {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.72rem;
+}
+.osint-inv-empty {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin: 0.3rem 0.2rem;
+}
+.osint-inv-group {
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-family: monospace;
+  /* Colonne d'étiquettes de largeur FIXE : les boutons de chaque rangée
+     (collecte, liens, shell) commencent tous au même x. */
+  flex: 0 0 15.5rem;
+  white-space: nowrap;
+}
+/* Sélecteurs des rangées à étiquette : même hauteur que les boutons. */
+.osint-inv-run .dorks-select,
+.osint-inv-shell .dorks-select {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  height: auto;
+}
+@media (max-width: 700px) {
+  .osint-inv-group {
+    flex-basis: 100%;
+  }
+}
+.osint-inv-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+}
+.osint-inv-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #f2c46d;
+  border-radius: 8px;
+  color: #f2c46d;
+  font-size: 0.8rem;
+}
+.osint-inv-banner[hidden] { display: none; }
+.osint-inv-dossier summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--accent);
+  padding: 0.2rem;
+}
+.osint-inv-dossier[open] summary { margin-bottom: 0.4rem; }
+.dorks-input.osint-note-input {
+  flex: 1 1 20rem;
+  resize: vertical;
+  min-height: 2.4rem;
+}
+.osint-notes {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  max-height: 14rem;
+  overflow-y: auto;
+}
+.osint-note {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.osint-note-at {
+  flex: 0 0 auto;
+  opacity: 0.6;
+  font-family: monospace;
+}
+.osint-note-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.osint-inv-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  /* Reste à droite de la colonne d'étiquettes et revient à la ligne
+     À L'INTÉRIEUR (11 liens) au lieu de passer sous l'étiquette. */
+  flex: 1 1 0;
+  min-width: 0;
+}
+.dorks-input.osint-inv-mail {
+  flex: 0 1 18rem;
+  min-width: 12rem;
+}

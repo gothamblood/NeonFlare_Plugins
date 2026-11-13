@@ -1,0 +1,163 @@
+{
+ "format": 1,
+ "plugins": [
+  {
+   "id": "osint",
+   "version": "1.0.0",
+   "minNeonFlare": "2.0.0",
+   "name": {
+    "fr": "OSINT",
+    "en": "OSINT"
+   },
+   "description": {
+    "fr": "Reconnaissance passive d'une cible autorisée : Google Dorks, Shodan, certificats (crt.sh), Wayback Machine et un inventaire « Actifs découverts » (DNS, RDAP, ASN, ports connus).",
+    "en": "Passive reconnaissance of an authorised target: Google Dorks, Shodan, certificates (crt.sh), Wayback Machine and a \"Discovered assets\" inventory (DNS, RDAP, ASN, known ports)."
+   },
+   "icon": "icon.svg",
+   "permissions": {
+    "shell": true,
+    "grc": true,
+    "network": [
+     "crt.sh",
+     "dns.google",
+     "rdap.org",
+     "stat.ripe.net",
+     "internetdb.shodan.io",
+     "web.archive.org",
+     "urlscan.io"
+    ],
+    "vault": [
+     "/dashboard.html/osintInventory"
+    ],
+    "storage": [
+     "/dashboard.html/osintTarget",
+     "/dashboard.html/dorks",
+     "/dashboard.html/shodan",
+     "/dashboard.html/crtsh",
+     "/dashboard.html/wayback",
+     "/dashboard.html/osintCollectUi"
+    ]
+   },
+   "legacySeenKey": "/settings.html/osintPanelsMigrated",
+   "styles": [
+    "osint.css"
+   ],
+   "scripts": [
+    "osint-common.js",
+    "osint-dorks.js",
+    "osint-shodan.js",
+    "osint-crtsh.js",
+    "osint-wayback.js",
+    "osint-collect.js",
+    "main.js"
+   ],
+   "panels": [
+    {
+     "key": "panelDorks",
+     "label": {
+      "fr": "Google Dorks",
+      "en": "Google Dorks"
+     }
+    },
+    {
+     "key": "panelShodan",
+     "label": {
+      "fr": "Shodan",
+      "en": "Shodan"
+     }
+    },
+    {
+     "key": "panelCrtsh",
+     "label": {
+      "fr": "Certificats (crt.sh)",
+      "en": "Certificates (crt.sh)"
+     }
+    },
+    {
+     "key": "panelWayback",
+     "label": {
+      "fr": "Wayback Machine",
+      "en": "Wayback Machine"
+     }
+    },
+    {
+     "key": "panelOsintAssets",
+     "label": {
+      "fr": "Actifs découverts",
+      "en": "Discovered assets"
+     },
+     "wide": true
+    }
+   ],
+   "dashboard": {
+    "id": "seed-osint",
+    "name": "OSINT",
+    "visible": [
+     "panelDorks",
+     "panelShodan",
+     "panelCrtsh",
+     "panelWayback",
+     "panelOsintAssets"
+    ]
+   },
+   "dir": "Plugins/OSINT",
+   "files": [
+    {
+     "path": "README.md",
+     "sha256": "32b2159d6aa5b25b72e7c50abeb252bbce7a812ab550c2b9fa242ed111525ee8",
+     "size": 1910
+    },
+    {
+     "path": "icon.svg",
+     "sha256": "945dd3d6be101ffc3ddf76f662766cf6787cbc9b227aa11118e50192e22c9f5c",
+     "size": 437
+    },
+    {
+     "path": "main.js",
+     "sha256": "61ef2b43f75882ae58f14fd50daedfd5e4af7007db32e60c5ad429c6f7e5edf0",
+     "size": 15514
+    },
+    {
+     "path": "manifest.json",
+     "sha256": "a373a6def52483e71d0976866f24d52013b18782b640354868bb63b6a40a7329",
+     "size": 1843
+    },
+    {
+     "path": "osint-collect.js",
+     "sha256": "2d61bd6c98cdae9245f13a629d2440c7c72c68df2e9586df3081be88c1e5d3c1",
+     "size": 58311
+    },
+    {
+     "path": "osint-common.js",
+     "sha256": "d461d978661f4edc6d9bf52dae40aa933915b7d0494abcff0b2e8cf2aa413663",
+     "size": 24563
+    },
+    {
+     "path": "osint-crtsh.js",
+     "sha256": "a8bc5a8fc62de8a56534fa43bf4202f9dc935513c74606a2c452cd775bb89d9f",
+     "size": 4279
+    },
+    {
+     "path": "osint-dorks.js",
+     "sha256": "91df0c55097a3867ecb0ef665d7f356c7776c8902cd8a1f7b7f395c35efe873a",
+     "size": 12988
+    },
+    {
+     "path": "osint-shodan.js",
+     "sha256": "545cc93a4f20f3c96f5b9a0c2a70f22834cfb31c4e09e2d3d8118d43a9d858e3",
+     "size": 5937
+    },
+    {
+     "path": "osint-wayback.js",
+     "sha256": "169ac4c083e2a138731630d17e56303738c5a6c732bc7daccfc3138f484b490b",
+     "size": 6989
+    },
+    {
+     "path": "osint.css",
+     "sha256": "fe1b6363da6f840203200c5dc4d57fb5c20e7c5d78175810b0c07febd5ed1b26",
+     "size": 8457
+    }
+   ]
+  }
+ ]
+}
